@@ -38,7 +38,7 @@ export class ConfigBuilder extends BaseConfigBuilder {
 
         proxyList.unshift('DIRECT', 'REJECT', '⚡ 自动选择');
         outbounds.unshift('🚀 节点选择','GLOBAL');
-        
+
         outbounds.forEach(outbound => {
             if (outbound !== '🚀 节点选择') {
                 this.config.outbounds.push({
@@ -56,7 +56,7 @@ export class ConfigBuilder extends BaseConfigBuilder {
         });
 
         if (Array.isArray(this.customRules)) {
-            this.customRules.filter(rule => rule.tag.toLowerCase() !== "direct" && rule.tag.toLowerCase() !== "reject")
+            this.customRules.filter(rule => !/^(direct|reject)$/i.test(rule.name))
                 .forEach(rule => {
                     this.config.outbounds.push({
                         type: "selector",
